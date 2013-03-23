@@ -9,10 +9,9 @@
 #import <Foundation/Foundation.h>
 
 typedef enum _LBGradientDrawingOptions {
-    LBGradientDrawsBeforeStartingLocation =   (1 << 0),
-    LBGradientDrawsAfterEndingLocation =    (1 << 1),
+    LBGradientDrawsBeforeStartingLocation = (1 << 0),
+    LBGradientDrawsAfterEndingLocation = (1 << 1),
 } LBGradientDrawingOptions;
-
 
 @interface LBGradient : NSObject <NSCopying, NSCoding> {
     @private

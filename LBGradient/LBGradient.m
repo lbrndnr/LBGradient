@@ -36,7 +36,7 @@ static inline CGFloat* LBGradientLocationsFromArray(NSArray* locations) {
     return newLocations;
 }
 
-static inline CGFloat degreesToRadians (CGFloat i) {
+static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
     return (M_PI * (i) / 180.0f);
 }
 
@@ -194,7 +194,7 @@ static inline CGFloat degreesToRadians (CGFloat i) {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
     CGContextClipToRect(context, rect);
-    CGContextRotateCTM(context, -degreesToRadians(angle));
+    CGContextRotateCTM(context, -LBGradientDegreesToRadians(angle));
     
     CFMutableArrayRef gradientColors = CFArrayCreateMutable(kCFAllocatorDefault, self.colors.count, &kCFTypeArrayCallBacks);
     for (UIColor* color in self.colors) {
@@ -216,7 +216,7 @@ static inline CGFloat degreesToRadians (CGFloat i) {
     CGContextSaveGState(context);
     [path addClip];
     CGContextClip(context);
-    CGContextRotateCTM(context, -degreesToRadians(angle));
+    CGContextRotateCTM(context, -LBGradientDegreesToRadians(angle));
     
     CFMutableArrayRef gradientColors = CFArrayCreateMutable(kCFAllocatorDefault, self.colors.count, &kCFTypeArrayCallBacks);
     for (UIColor* color in self.colors) {
