@@ -37,7 +37,7 @@ static inline CGFloat* LBGradientLocationsFromArray(NSArray* locations) {
 }
 
 static inline CGFloat degreesToRadians (CGFloat i) {
-    return (M_PI * (i) / 180.0);
+    return (M_PI * (i) / 180.0f);
 }
 
 @interface LBGradient () {
@@ -247,10 +247,10 @@ static inline CGFloat degreesToRadians (CGFloat i) {
     
     CGFloat width = CGRectGetWidth(rect);
     CGFloat height = CGRectGetHeight(rect);
-    CGFloat radius = sqrtf(powf(width/2, 2)+powf(height/2, 2));
+    CGFloat radius = sqrtf(powf(width/2.0f, 2)+powf(height/2.0f, 2));
     
-    CGPoint startCenter = CGPointMake(width/2+(width*relativeCenterPosition.x)/2, height/2+(height*relativeCenterPosition.y)/2);
-    CGPoint endCenter = CGPointMake(width/2, height/2);
+    CGPoint startCenter = CGPointMake(width/2.0f+(width*relativeCenterPosition.x)/2.0f, height/2.0f+(height*relativeCenterPosition.y)/2.0f);
+    CGPoint endCenter = CGPointMake(width/2.0f, height/2.0f);
     
     CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, gradientColors, locations);
     CGContextDrawRadialGradient(context, gradient, startCenter, 0, endCenter, radius, 0);
@@ -273,13 +273,13 @@ static inline CGFloat degreesToRadians (CGFloat i) {
     CGRect bounds = path.bounds;
     CGFloat width = CGRectGetWidth(bounds);
     CGFloat height = CGRectGetHeight(bounds);
-    CGFloat radius = sqrtf(powf(width/2, 2)+powf(height/2, 2));
+    CGFloat radius = sqrtf(powf(width/2.0f, 2)+powf(height/2.0f, 2));
     
-    CGPoint startCenter = CGPointMake(width/2+(width*relativeCenterPosition.x)/2, height/2+(height*relativeCenterPosition.y)/2);
-    CGPoint endCenter = CGPointMake(width/2, height/2);
+    CGPoint startCenter = CGPointMake(width/2.0f+(width*relativeCenterPosition.x)/2.0f, height/2.0f+(height*relativeCenterPosition.y)/2.0f);
+    CGPoint endCenter = CGPointMake(width/2.0f, height/2.0f);
     
     CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, gradientColors, locations);
-    CGContextDrawRadialGradient(context, gradient, startCenter, 0, endCenter, radius, 0);
+    CGContextDrawRadialGradient(context, gradient, startCenter, 0.0f, endCenter, radius, 0);
     CGGradientRelease(gradient);
     CFRelease(gradientColors);
     CGContextRestoreGState(context);
