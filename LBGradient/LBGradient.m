@@ -8,8 +8,8 @@
 
 #import "LBGradient.h"
 
-static NSString* const kColorsKey = @"colors";
-static NSString* const kLocationsKey = @"locations";
+static NSString* const kLBGradientColorsKey = @"colors";
+static NSString* const kLBGradientLocationsKey = @"locations";
 
 static inline CGFloat* LBGradientLocationsForColors(NSArray* colors) {
     CGFloat* newLocations = malloc(colors.count*sizeof(CGFloat));
@@ -136,16 +136,16 @@ static inline CGFloat degreesToRadians (CGFloat i) {
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        self.colors = [aDecoder decodeObjectForKey:kColorsKey];
-        locations = LBGradientLocationsFromArray([aDecoder decodeObjectForKey:kLocationsKey]);
+        self.colors = [aDecoder decodeObjectForKey:kLBGradientColorsKey];
+        locations = LBGradientLocationsFromArray([aDecoder decodeObjectForKey:kLBGradientLocationsKey]);
         self.colorSpace = CGColorSpaceCreateDeviceRGB();
     }
     return self;
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:self.colors forKey:kColorsKey];
-    [aCoder encodeObject:LBGradientArrayFromLocations(locations, colors.count) forKey:kLocationsKey];
+    [aCoder encodeObject:self.colors forKey:kLBGradientColorsKey];
+    [aCoder encodeObject:LBGradientArrayFromLocations(locations, colors.count) forKey:kLBGradientLocationsKey];
 }
 
 #pragma mark -
