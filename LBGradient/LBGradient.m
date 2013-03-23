@@ -161,11 +161,8 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
 #pragma mark Memory
 
 -(void)dealloc {
-    self.colors = nil;
     free(locations);
     CGColorSpaceRelease(colorSpace);
-    
-    [super dealloc];
 }
 
 #pragma mark -
@@ -174,7 +171,7 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
 -(void)drawFromPoint:(CGPoint)startingPoint toPoint:(CGPoint)endingPoint options:(LBGradientDrawingOptions)options {
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (CFArrayRef)self.colors, locations);
+    CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (__bridge CFArrayRef)self.colors, locations);
     CGContextDrawLinearGradient(context, gradient, startingPoint, endingPoint, options);
     CGGradientRelease(gradient);
 }
@@ -182,7 +179,7 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
 -(void)drawFromCenter:(CGPoint)startCenter radius:(CGFloat)startRadius toCenter:(CGPoint)endCenter radius:(CGFloat)endRadius options:(LBGradientDrawingOptions)options {
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (CFArrayRef)self.colors, locations);
+    CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (__bridge CFArrayRef)self.colors, locations);
     CGContextDrawRadialGradient(context, gradient, startCenter, startRadius, endCenter, endRadius, options);
     CGGradientRelease(gradient);
 }
@@ -196,7 +193,7 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
     CGPoint startPoint = CGPointMake(CGRectGetMinX(rect), CGRectGetMidY(rect));
     CGPoint endPoint = CGPointMake(CGRectGetMaxX(rect), CGRectGetMidY(rect));
     
-    CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (CFArrayRef)self.colors, locations);
+    CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (__bridge CFArrayRef)self.colors, locations);
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsAfterEndLocation|kCGGradientDrawsBeforeStartLocation);
     CGGradientRelease(gradient);
     CGContextRestoreGState(context);
@@ -214,7 +211,7 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
     CGPoint startPoint = CGPointMake(CGRectGetMinX(bounds), CGRectGetMidY(bounds));
     CGPoint endPoint = CGPointMake(CGRectGetMaxX(bounds), CGRectGetMidY(bounds));
     
-    CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (CFArrayRef)self.colors, locations);
+    CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (__bridge CFArrayRef)self.colors, locations);
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsAfterEndLocation|kCGGradientDrawsBeforeStartLocation);
     CGGradientRelease(gradient);
     CGContextRestoreGState(context);
@@ -232,7 +229,7 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
     CGPoint startCenter = CGPointMake(width/2.0f+(width*relativeCenterPosition.x)/2.0f, height/2.0f+(height*relativeCenterPosition.y)/2.0f);
     CGPoint endCenter = CGPointMake(width/2.0f, height/2.0f);
     
-    CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (CFArrayRef)self.colors, locations);
+    CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (__bridge CFArrayRef)self.colors, locations);
     CGContextDrawRadialGradient(context, gradient, startCenter, 0, endCenter, radius, 0);
     CGGradientRelease(gradient);
     CGContextRestoreGState(context);
@@ -252,7 +249,7 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
     CGPoint startCenter = CGPointMake(width/2.0f+(width*relativeCenterPosition.x)/2.0f, height/2.0f+(height*relativeCenterPosition.y)/2.0f);
     CGPoint endCenter = CGPointMake(width/2.0f, height/2.0f);
     
-    CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (CFArrayRef)self.colors, locations);
+    CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (__bridge CFArrayRef)self.colors, locations);
     CGContextDrawRadialGradient(context, gradient, startCenter, 0.0f, endCenter, radius, 0);
     CGGradientRelease(gradient);
     CGContextRestoreGState(context);
