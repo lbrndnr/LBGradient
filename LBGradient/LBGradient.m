@@ -11,12 +11,12 @@
 static NSString* const kLBGradientColorsKey = @"colors";
 static NSString* const kLBGradientLocationsKey = @"locations";
 
-static inline CGFloat* LBGradientLocationsForColors(NSArray* colors) {
-    CGFloat* newLocations = malloc(colors.count*sizeof(CGFloat));
-    NSUInteger count = colors.count;
-    for (unsigned int i = 0; i < count; i++) {
-        newLocations[i] = (i) ? (float)i/(float)(count-1) : 0.0f;
+static inline CGFloat* LBGradientConsistentColorLocations(NSUInteger count) {
+    CGFloat* newLocations = (CGFloat*)malloc(count*sizeof(CGFloat));
+    for (NSUInteger i = 0; i < count; i++) {
+        newLocations[i] = (i) ? (CGFloat)i/(CGFloat)(count-1) : 0.0f;
     }
+    
     return newLocations;
 }
 
@@ -58,13 +58,6 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
     return self.colors.count;
 }
 
--(void)getColor:(UIColor **)color location:(CGFloat *)location atIndex:(NSUInteger)index {
-    if (index < self.colors.count) {
-        *color = [self.colors objectAtIndex:index];
-        *location = locations[index];
-    }
-}
-
 #pragma mark -
 #pragma mark Initialization 
 
@@ -73,7 +66,7 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
     if (self) {
         self.colors = [NSArray arrayWithObjects:startingColor, endingColor, nil];
         self.colorSpace = CGColorSpaceCreateDeviceRGB();
-        locations = LBGradientLocationsForColors(self.colors);
+        locations = LBGradientConsistentColorLocations(2);
     }
     return self;
 }
@@ -83,7 +76,7 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
     if (self) {        
         self.colors = colorArray;
         self.colorSpace = CGColorSpaceCreateDeviceRGB();
-        locations = LBGradientLocationsForColors(self.colors);
+        locations = LBGradientConsistentColorLocations(colorArray.count);
     }
     return self;
 }
@@ -283,6 +276,16 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
     CGGradientRelease(gradient);
     CFRelease(gradientColors);
     CGContextRestoreGState(context);
+}
+
+#pragma mark -
+#pragma mark Other Methods
+
+-(void)getColor:(UIColor **)color location:(CGFloat *)location atIndex:(NSUInteger)index {
+    if (index < self.colors.count) {
+        *color = [self.colors objectAtIndex:index];
+        *location = locations[index];
+    }
 }
 
 #pragma mark -
