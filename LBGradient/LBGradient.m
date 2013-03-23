@@ -105,7 +105,6 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
         NSMutableArray* newColors = [NSMutableArray array];
         va_list arguments;
         va_start(arguments, firstColor);
-        locations = malloc(2*sizeof(CGFloat));
         for (UIColor* color = firstColor; color; color=va_arg(arguments, UIColor*)) {
             [newColors addObject:(id)color.CGColor];
             locations = realloc(locations, newColors.count*sizeof(CGFloat));
