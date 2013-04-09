@@ -13,7 +13,7 @@
 
 -(void)drawRect:(CGRect)rect {
     LBGradient* gradient = [[LBGradient alloc] initWithColorsAndLocations:[UIColor blueColor], 0.0f, [UIColor redColor], 0.5f, [UIColor greenColor], 1.0f, nil];
-    [gradient drawInRect:self.bounds angle:0];
+    [gradient drawInRect:self.bounds angle:289.0f];
 }
 
 

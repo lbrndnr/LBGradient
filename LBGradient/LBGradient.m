@@ -188,10 +188,16 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
     CGContextClipToRect(context, rect);
-    CGContextRotateCTM(context, -LBGradientDegreesToRadians(angle));
     
-    CGPoint startPoint = CGPointMake(CGRectGetMinX(rect), CGRectGetMidY(rect));
-    CGPoint endPoint = CGPointMake(CGRectGetMaxX(rect), CGRectGetMidY(rect));
+    CGFloat midX =  CGRectGetMidX(rect);
+    CGFloat midY =  CGRectGetMidY(rect);
+    
+    CGContextTranslateCTM(context, midX, midY);
+    CGContextRotateCTM(context, -LBGradientDegreesToRadians(angle));
+    CGContextTranslateCTM(context, -midX, -midY);
+    
+    CGPoint startPoint = CGPointMake(CGRectGetMinX(rect), midY);
+    CGPoint endPoint = CGPointMake(CGRectGetMaxX(rect), midY);
     
     CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (__bridge CFArrayRef)self.colors, locations);
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsAfterEndLocation|kCGGradientDrawsBeforeStartLocation);
@@ -204,12 +210,17 @@ static inline CGFloat LBGradientDegreesToRadians (CGFloat i) {
     CGContextSaveGState(context);
     [path addClip];
     CGContextClip(context);
-    CGContextRotateCTM(context, -LBGradientDegreesToRadians(angle));
     
     CGRect bounds = path.bounds;
+    CGFloat midX =  CGRectGetMidX(bounds);
+    CGFloat midY =  CGRectGetMidY(bounds);
     
-    CGPoint startPoint = CGPointMake(CGRectGetMinX(bounds), CGRectGetMidY(bounds));
-    CGPoint endPoint = CGPointMake(CGRectGetMaxX(bounds), CGRectGetMidY(bounds));
+    CGContextTranslateCTM(context, midX, midY);
+    CGContextRotateCTM(context, -LBGradientDegreesToRadians(angle));
+    CGContextTranslateCTM(context, -midX, -midY);
+    
+    CGPoint startPoint = CGPointMake(CGRectGetMinX(bounds), midY);
+    CGPoint endPoint = CGPointMake(CGRectGetMaxX(bounds), midY);
     
     CGGradientRef gradient = CGGradientCreateWithColors(self.colorSpace, (__bridge CFArrayRef)self.colors, locations);
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, kCGGradientDrawsAfterEndLocation|kCGGradientDrawsBeforeStartLocation);
